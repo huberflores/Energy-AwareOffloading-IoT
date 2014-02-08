@@ -1,2 +1,2 @@
-Towards Power-Aware Mobile Code for supporting the Internet of Things
+Towards Power-Aware Mobile Cloud for supporting the Internet of Things
 ======================================================================
