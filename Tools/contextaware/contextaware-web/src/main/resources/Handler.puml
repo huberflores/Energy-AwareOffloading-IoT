@@ -1,0 +1,57 @@
+@startuml
+
+title The Arduinohandler.
+
+participant HttpRequest as request
+participant HttpResponse as response
+participant Request as baseRequest
+
+
+[-> arduinohandler : handle
+arduinohandler -> system : currentTimeMillis
+
+alt request.getMethod() == POST
+
+    alt request.getContentType() == JSON
+
+        arduinohandler -> arduinohandler : readRequestBody
+        arduinohandler -> XmppDAO : processMessage
+        arduinohandler <-- XmppDAO : receivedSensorData
+
+
+        arduinohandler -> predict : createPredictionData(receivedSensorData)
+        arduinohandler <-- predict :   predictionMap
+        arduinohandler -> predictionMap : get(TYPE_TEMPERATURE)
+        arduinohandler -> predictionMap : get(TYPE_HALL)
+        arduinohandler -> predictionMap : get(TYPE_LIGHT)
+
+        alt  areAllPredictionsValid
+            create fuzzylogicengine
+            arduinohandler -> fuzzylogicengine : new
+            arduinohandler -> fuzzylogicengine : initialize(prevTemp, prevLight, prevHall)
+
+            arduinohandler -> fuzzylogicengine :  calculatePredictTime
+            arduinohandler <-- fuzzylogicengine  :  idletime
+
+            alt  idleTime > 10 && !predicted
+                arduinohandler <-- arduinohandler  :  resetIdleTime
+            end
+        end
+
+        loop receivedSensorData.size()
+             arduinohandler -> XmppDAO : insertSensorData
+        end
+        arduinohandler -> response : setContentType
+        arduinohandler -> response : setStatus
+        arduinohandler -> response : setContentLength
+        arduinohandler -> response : getWriter
+    else
+        response -> response : setStatus(415)
+    end
+
+
+else
+    response -> response : setStatus(405)
+end
+    arduinohandler -> baseRequest : setHandler(true);
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+title Main Sequence Diagram
+actor user
+user -> Main: main
+activate Main
+create server
+
+Main -> server: new
+activate server
+
+create context
+Main -> context: new
+context -> context: setContextPath("/data")
+activate context
+context->context: setResourceBase
+context->context: setClassLoader(Thread.currentThread().getContextClassLoader())
+context->context: setHandler(new ArduinoHandler())
+deactivate context
+
+server->server:setHandler
+server->server:start
+server->server:join
+deactivate server
+
+@enduml

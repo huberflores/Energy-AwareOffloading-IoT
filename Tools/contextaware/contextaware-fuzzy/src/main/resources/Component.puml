@@ -1,0 +1,22 @@
+@startuml
+
+title Component Diagram
+
+
+[jettyserver] -- responseJsonSensorData
+[jettyserver] .right. request
+responseJsonSensorData  .right. [arduinomodule]
+request -right- [arduinomodule]
+[jettyserver] -down- ()sensordata
+sensordata .left. [predict]
+
+[predict] -up- regressionmodels
+regressionmodels .up. [fuzzylogic]
+[fuzzylogic] -left- predicteddata
+[fuzzylogic] -right- [jettyserver]
+predicteddata .down. H2
+
+database "H2" {
+}
+
+@enduml

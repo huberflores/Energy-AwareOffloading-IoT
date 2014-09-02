@@ -1,0 +1,16 @@
+encog,NEATNetwork,java,3.1.0,1,1400679466020
+[NEAT]
+[NEAT:PARAMS]
+[NEAT:NETWORK]
+inputCount=1
+outputCount=1
+activationFunction=ActivationSteepenedSigmoid
+depth=0
+cycles=4
+[NEAT:NEURONS]
+0,"i",0.1,0
+1,"b",0.9,0
+2,"o",0.5,1
+[NEAT:LINKS]
+0,2,0,0.2328923593
+1,2,0,-0.3082400923

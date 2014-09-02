@@ -1,0 +1,60 @@
+@startuml
+
+title The HttpHandler.
+
+participant HttpRequest as request
+participant HttpResponse as response
+participant Request as baseRequest
+
+
+[-> httpHandler : handle
+httpHandler -> system : currentTimeMillis
+
+alt request.getMethod() == POST
+
+    alt request.getContentType() == JSON
+
+        httpHandler -> httpHandler : readRequestBody
+        httpHandler -> DAOManager : processMessage
+        httpHandler <-- DAOManager : receivedSensorData
+
+
+        httpHandler -> predictor : createPredictionData(receivedSensorData)
+        httpHandler <-- predictor :   predictionMap
+        httpHandler -> predictionMap : get(TYPE_TEMPERATURE)
+        httpHandler -> predictionMap : get(TYPE_HALL)
+        httpHandler -> predictionMap : get(TYPE_LIGHT)
+        httpHandler -> predictionMap : get(TYPE_ACCELY)
+        httpHandler -> predictionMap : get(TYPE_ACCELX)
+        httpHandler -> predictionMap : get(TYPE_BW)
+
+        alt  areAllPredictionsValid
+            create fuzzylogicengine
+            httpHandler -> fuzzylogicengine : new
+            httpHandler -> fuzzylogicengine : initialize(double prevTemp,double prevLight,double prevHall,double prevBw,double prevVolt,double prevaccelx,double prevaccely)
+
+            httpHandler -> fuzzylogicengine :  calculatePredictTime
+            httpHandler <-- fuzzylogicengine  :  idletime
+
+            alt  idleTime > 10 && !predicted
+                httpHandler <-- httpHandler  :  resetIdleTime
+            end
+        end
+
+        loop receivedSensorData.size()
+             httpHandler -> DAOManager : insertSensorData
+        end
+        httpHandler -> response : setContentType
+        httpHandler -> response : setStatus
+        httpHandler -> response : setContentLength
+        httpHandler -> response : getWriter
+    else
+        response -> response : setStatus(415)
+    end
+
+
+else
+    response -> response : setStatus(405)
+end
+    httpHandler -> baseRequest : setHandler(true);
+@enduml

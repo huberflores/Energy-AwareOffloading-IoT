@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/contextaware.iml" filepath="$PROJECT_DIR$/contextaware.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contextaware-fuzzy/contextaware-fuzzy.iml" filepath="$PROJECT_DIR$/contextaware-fuzzy/contextaware-fuzzy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contextaware-h2/contextaware-h2.iml" filepath="$PROJECT_DIR$/contextaware-h2/contextaware-h2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contextaware-neural/contextaware-neural.iml" filepath="$PROJECT_DIR$/contextaware-neural/contextaware-neural.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contextaware-predict/contextaware-predict.iml" filepath="$PROJECT_DIR$/contextaware-predict/contextaware-predict.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contextaware-web/contextaware-web.iml" filepath="$PROJECT_DIR$/contextaware-web/contextaware-web.iml" />
+    </modules>
+  </component>
+</project>
+

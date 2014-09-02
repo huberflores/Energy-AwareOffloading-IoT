@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3358562554">
+    <data-source source="LOCAL" name="H2 - arduinoDB" uuid="9077f5ca-b9d3-4059-a0f5-8bbe297cb24e">
+      <driver-ref>h2.embedded</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:file:$PROJECT_DIR$/../arduinoDB</jdbc-url>
+      <user-name>sa</user-name>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="H2 - arduinoDB [Home]" uuid="6d6d9dd9-b185-4ee6-ba33-b02ec4cbd44a">
+      <driver-ref>h2.embedded</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:file:$USER_HOME$/contextaware/arduinoDB</jdbc-url>
+      <user-name>sa</user-name>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

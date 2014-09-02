@@ -1,0 +1,5 @@
+SET UP
+In order to start the application please run "./start.sh" from the root folder
+To stop the application run "./stop.sh"
+To run a remote session on port 5055 run "./debug.sh"
+
